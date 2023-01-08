@@ -1,4 +1,5 @@
 import time
+import sys
 from pymavlink import mavutil
 
 class Hyxqt:
@@ -72,3 +73,23 @@ class Hyxqt:
                 self.setRcChannelPWM(6, 1500)
                 break
             # print(end - start)
+
+    def changeFlightMode(self, mode:str):
+        """
+        更换飞行模式
+        :param mode: 飞行模式
+        """
+        # Check if mode is available
+        if mode not in self.master.mode_mapping():
+            print('Unknown mode : {}'.format(mode))
+            print('Try:', list(self.master.mode_mapping().keys()))
+            sys.exit(1)
+
+        # Get mode ID
+        mode_id = self.master.mode_mapping()[mode]
+
+        # Set new mode
+        self.master.mav.set_mode_send(
+            self.master.target_system,
+            mavutil.mavlink.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,
+            mode_id)
