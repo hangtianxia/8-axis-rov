@@ -65,10 +65,10 @@ class Hyxqt:
         while True:
             end = time.time()
             if end - start < du:
-                self.set_rc_channel_pwm(3, 1450)
-                self.set_rc_channel_pwm(6, 1550)
+                self.setRcChannelPWM(3, 1450)
+                self.setRcChannelPWM(6, 1550)
             else:
-                self.set_rc_channel_pwm(3, 1500)
-                self.set_rc_channel_pwm(6, 1500)
+                self.setRcChannelPWM(3, 1500)
+                self.setRcChannelPWM(6, 1500)
                 break
             # print(end - start)
