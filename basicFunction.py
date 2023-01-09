@@ -110,20 +110,30 @@ class Hyxqt:
         :param angle:     角度（正前方为90°）
         :param speed:     速度 (0~400)
         """
-        if((0<=speed<=400) & (0<=angle<360)):
-            speed = speed + 1500
+        if((0<=speed<=400) and (0<=angle<=360)):
+            # speed = speed + 1500
+            if angle == 360:
+                angle = 0
+
             if 0 <= angle < 90:
-                x = speed * sin(radians(angle))
-                y = speed * cos(radians(angle))
-            elif 90 <= angle < 180:
-                x = 1500 - (1500 - speed * sin(radians(angle)))
-                y = speed * abs(cos(radians(angle)))
+                x = 1500 + speed * cos(radians(angle))
+                y = 1500 + speed * sin(radians(angle))
+            elif 90 < angle < 180:
+                x = 1500 - speed * cos(radians(angle - 90))
+                y = 1500 + speed * abs(sin(radians(angle - 90)))
             elif 180 <= angle < 270:
-                x = 1500 - (1500 - speed * abs(sin(radians(angle))))
-                y = 1500 - (1500 - speed * abs(cos(radians(angle))))
-            elif 270 <= angle <360:
-                x = speed * abs(sin(radians(angle)))
-                y = 1500 - (1500 - speed * cos(radians(angle)))
+                x = 1500 - speed * abs(cos(radians(angle - 180)))
+                y = 1500 - speed * abs(sin(radians(angle - 180)))
+            elif 270 < angle < 360:
+                x = 1500 + speed * abs(cos(radians(angle - 270)))
+                y = 1500 - speed * sin(radians(angle - 270))
+            elif angle == 90:
+                x = 1500
+                y = speed
+            elif angle == 270:
+                x = 0
+                y = speed
+
 
             x = int(abs(x))
             y = int(abs(y))
@@ -131,6 +141,6 @@ class Hyxqt:
             print('Invalid speed or angle!')
             sys.exit(1)
 
-        # self.sendRcTransSignal(x, y)
+        self.sendRcTransSignal(x, y)
         print("x:%s, y:%d" % (x, y))
         # print(cos(angle))
