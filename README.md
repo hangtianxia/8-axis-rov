@@ -20,7 +20,7 @@
 
 ### basicFunction.py
 
-包含一个class：Hyxt，其中包含7个实例方法：
+包含一个class：Hyxqt，其中包含7个实例方法：
 1. arm(self)
 2. disArm(self)
 3. setRcChannelPWM(self, channel_id: int, pwm: int)
