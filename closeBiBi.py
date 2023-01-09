@@ -49,7 +49,7 @@ def startMotor(du):
     """
     启动电机，参数为启动时长（秒）
     """
-    # print("Chnnel 3、5")
+    # print("Channel 3、5")
     start = time.time()
     while True:
         end = time.time()

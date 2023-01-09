@@ -1,16 +1,17 @@
 import time
 import sys
-from math import sin, cos, fabs, radians
+from math import sin, cos, radians
 from pymavlink import mavutil
 
+
 class Hyxqt:
-    def __init__(self, devicepath:str, baudrate:int):
+    def __init__(self, devicePath: str, baudRate: int):
         """
         初始化实例，建立连接
-        param devicepath: 设备位置，例如'/dev/ttyACM0'
-        param baudrate:   波特率
+        param devicePath: 设备位置，例如'/dev/ttyACM0'
+        param baudRate:   波特率
         """
-        self.master = mavutil.mavlink_connection(devicepath, baudrate)
+        self.master = mavutil.mavlink_connection(devicePath, baudRate)
         # Wait a heartbeat before sending commands
         self.master.wait_heartbeat()
         pass
@@ -45,7 +46,7 @@ class Hyxqt:
         self.master.motors_disarmed_wait()
         print('DisArmed!')
 
-    def setRcChannelPWM(self, channel_id:int, pwm:int):
+    def setRcChannelPWM(self, channel_id: int, pwm: int):
         if channel_id < 1 or channel_id > 18:
             print("Channel does not exist.")
             return
@@ -57,12 +58,12 @@ class Hyxqt:
             self.master.target_component,  # target_component
             *rc_channel_values)  # RC channel list, in microseconds.
 
-    def startMotor(self, du:int):
+    def startMotor(self, du: int):
         """
         通过RC信号启动电机
         :param du: 电机启动时长（秒）
         """
-        # print("Chnnel 3、5")
+        # print("Channel 3、5")
         start = time.time()
         while True:
             end = time.time()
@@ -75,7 +76,7 @@ class Hyxqt:
                 break
             # print(end - start)
 
-    def changeFlightMode(self, mode:str):
+    def changeFlightMode(self, mode: str):
         """
         更换飞行模式
         :param mode: 飞行模式
@@ -95,7 +96,7 @@ class Hyxqt:
             mavutil.mavlink.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,
             mode_id)
 
-    def sendRcTransSignal(self, speed1:float, speed2:float):
+    def sendRcTransSignal(self, speed1: int, speed2: int):
         """
         发送RC信号控制平移
         :param speed1:  平移左右方向杆量
@@ -104,13 +105,16 @@ class Hyxqt:
         self.setRcChannelPWM(6, speed1)
         self.setRcChannelPWM(5, speed2)
 
-    def translation(self, angle:float, speed:int):
+    def translation(self, angle: float, speed: int):
         """
         平移，通过参数中的方向和速度进行全向解算并移动
         :param angle:     角度（正前方为90°）
         :param speed:     速度 (0~400)
         """
-        if((0<=speed<=400) and (0<=angle<=360)):
+
+        x = y = 0
+
+        if(0 <= speed <= 400) and (0 <= angle <= 360):
             # speed = speed + 1500
             if angle == 360:
                 angle = 0
@@ -133,7 +137,6 @@ class Hyxqt:
             elif angle == 270:
                 x = 0
                 y = speed
-
 
             x = int(abs(x))
             y = int(abs(y))
