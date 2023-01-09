@@ -1,6 +1,6 @@
 import time
 import sys
-from math import sin, cos
+from math import sin, cos, fabs, radians
 from pymavlink import mavutil
 
 class Hyxqt:
@@ -110,26 +110,27 @@ class Hyxqt:
         :param angle:     角度（正前方为90°）
         :param speed:     速度 (0~400)
         """
-        if((0<=speed<=400) & (0<=angle<=180)):
+        if((0<=speed<=400) & (0<=angle<360)):
             speed = speed + 1500
             if 0 <= angle < 90:
-                x = speed * sin(angle)
-                y = speed * cos(angle)
+                x = speed * sin(radians(angle))
+                y = speed * cos(radians(angle))
             elif 90 <= angle < 180:
-                x = 1500 - (speed * sin(angle) - 1500)
-                y = speed * cos(angle)
+                x = 1500 - (1500 - speed * sin(radians(angle)))
+                y = speed * abs(cos(radians(angle)))
             elif 180 <= angle < 270:
-                x = 1500 - (speed * sin(angle) - 1500)
-                y = 1500 - (speed * cos(angle) - 1500)
+                x = 1500 - (1500 - speed * abs(sin(radians(angle))))
+                y = 1500 - (1500 - speed * abs(cos(radians(angle))))
             elif 270 <= angle <360:
-                x = speed * sin(angle)
-                y = 1500 - (speed * cos(angle) - 1500)
+                x = speed * abs(sin(radians(angle)))
+                y = 1500 - (1500 - speed * cos(radians(angle)))
 
-            x = int(x)
-            y = int(y)
+            x = int(abs(x))
+            y = int(abs(y))
         else:
             print('Invalid speed or angle!')
             sys.exit(1)
 
-        self.sendRcTransSignal(x, y)
+        # self.sendRcTransSignal(x, y)
         print("x:%s, y:%d" % (x, y))
+        # print(cos(angle))
