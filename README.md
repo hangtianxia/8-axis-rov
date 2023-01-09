@@ -8,7 +8,7 @@
 
 1.  Python3
 2.  Pymavlink
-    具体安装过程参考[Pymavlink](https://www.ardusub.com/developers/pymavlink.html)
+    具体安装过程参考[Installation](https://www.ardusub.com/developers/pymavlink.html)
 3.  其他（包括OpenCV等）
 
 ### 文件说明
