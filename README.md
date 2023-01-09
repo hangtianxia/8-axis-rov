@@ -31,3 +31,23 @@
 
 *具体功能及参数兼文件内注释*
 
+示例程序：
+
+``` py
+from basicFunction import Hyxqt
+
+if __name__ == '__main__':
+    xqt = Hyxqt('/dev/ttyACM0', 115200)    #创建实例并建立连接
+    xqt.arm()                              #解锁电机
+    xqt.changeFlightMode("MANUAL")         #设置飞行模式为手动模式
+    while True:
+        xqt.translation(45, 200)           #向右前方45°以200速度平移
+
+    # xqt.disArm()                         #锁定电机
+```
+
+### closeBiBi.py
+
+功能为每隔一段时间启动所有电机，防止电调因长时间接受不到信号发出响声，可独立运行。
+
+
