@@ -29,7 +29,7 @@
 6. sendRcTransSignal(self, speed1: int, speed2: int)
 7. translation(self, angle: float, speed: int)
 
-*具体功能及参数兼文件内注释*
+*具体功能及参数见文件内注释*
 
 示例程序：
 
