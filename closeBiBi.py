@@ -1,8 +1,11 @@
 """
-使所有电机旋转5s以关闭电调bibi声
+每隔四分钟使所有电机旋转5s以关闭电调bibi声
 """
 import time
+import threading
 from pymavlink import mavutil
+
+cancel_tmr = False
 
 master = mavutil.mavlink_connection('/dev/ttyACM0', baud=115200)
 # Wait a heartbeat before sending commands
@@ -24,16 +27,22 @@ def arm():
     """
     解锁电机
     """
-    master.mav.command_long_send(
-        master.target_system,
-        master.target_component,
-        mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-        0,
-        1, 0, 0, 0, 0, 0, 0)
+    flag = True
+    while flag:
+        master.mav.command_long_send(
+            master.target_system,
+            master.target_component,
+            mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
+            0,
+            1, 0, 0, 0, 0, 0, 0)
 
-    # wait until arming confirmed (can manually check with master.motors_armed())
-    print("Waiting for the vehicle to arm")
-    master.motors_armed_wait()
+        # wait until arming confirmed (can manually check with master.motors_armed())
+        print("Waiting for the vehicle to arm")
+        # master.motors_armed_wait()
+        # if master.motors_armed_wait() is None:
+        #     time.sleep(3)
+        #     continue
+        flag = False
     print('Armed!')
 
 def startMotor(du):
@@ -67,9 +76,20 @@ def disArm():
     master.motors_disarmed_wait()
     print('DisArmed!')
 
-
-if __name__=='__main__':
+def start():
     arm()
     startMotor(5)
     disArm()
     print(("Finished!"))
+    print("Waiting...")
+
+def heartBeat():
+    # 打印当前时间
+    print(time.strftime('%Y-%m-%d %H:%M:%S'))
+    if not cancel_tmr:
+        start()
+        # 每隔180秒执行一次
+    threading.Timer(180, heartBeat).start()
+
+if __name__=='__main__':
+    heartBeat()

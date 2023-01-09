@@ -1,5 +1,6 @@
 import time
 import sys
+from math import sin, cos
 from pymavlink import mavutil
 
 class Hyxqt:
@@ -58,7 +59,7 @@ class Hyxqt:
 
     def startMotor(self, du:int):
         """
-        启动电机
+        通过RC信号启动电机
         :param du: 电机启动时长（秒）
         """
         # print("Chnnel 3、5")
@@ -93,3 +94,42 @@ class Hyxqt:
             self.master.target_system,
             mavutil.mavlink.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,
             mode_id)
+
+    def sendRcTransSignal(self, speed1:float, speed2:float):
+        """
+        发送RC信号控制平移
+        :param speed1:  平移左右方向杆量
+        :param speed2:  平移前后方向杆量
+        """
+        self.setRcChannelPWM(6, speed1)
+        self.setRcChannelPWM(5, speed2)
+
+    def translation(self, angle:float, speed:int):
+        """
+        平移，通过参数中的方向和速度进行全向解算并移动
+        :param angle:     角度（正前方为90°）
+        :param speed:     速度 (0~400)
+        """
+        if((0<=speed<=400) & (0<=angle<=180)):
+            speed = speed + 1500
+            if 0 <= angle < 90:
+                x = speed * sin(angle)
+                y = speed * cos(angle)
+            elif 90 <= angle < 180:
+                x = 1500 - (speed * sin(angle) - 1500)
+                y = speed * cos(angle)
+            elif 180 <= angle < 270:
+                x = 1500 - (speed * sin(angle) - 1500)
+                y = 1500 - (speed * cos(angle) - 1500)
+            elif 270 <= angle <360:
+                x = speed * sin(angle)
+                y = 1500 - (speed * cos(angle) - 1500)
+
+            x = int(x)
+            y = int(y)
+        else:
+            print('Invalid speed or angle!')
+            sys.exit(1)
+
+        self.sendRcTransSignal(x, y)
+        print("x:%s, y:%d" % (x, y))
