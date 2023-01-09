@@ -11,7 +11,7 @@
     具体安装过程参考[Pymavlink](https://www.ardusub.com/developers/pymavlink.html)
 3.  其他（包括OpenCV等）
 
-### 使用说明
+### 文件说明
 
 1.  basicFunction.py: 包含解锁、锁定、平移等基本功能
 2.  closeBiBi.py: 每隔3min启动一次所有电机以防止电调因长时间未收到信号发出bibi声
