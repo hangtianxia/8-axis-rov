@@ -85,7 +85,7 @@ def start():
     arm()
     startMotor(5)
     disArm()
-    print(("Finished!"))
+    print("Finished!")
     print("Waiting...")
 
 
@@ -98,5 +98,5 @@ def heartBeat():
     threading.Timer(180, heartBeat).start()
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     heartBeat()
