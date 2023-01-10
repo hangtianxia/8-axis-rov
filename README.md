@@ -5,7 +5,7 @@
 
 
 ### 环境
-*飞控使用Ardusub固件*
+
 1.  Python3
 2.  Pymavlink
     具体安装过程参考[Installation](https://www.ardusub.com/developers/pymavlink.html)
