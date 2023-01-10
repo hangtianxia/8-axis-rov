@@ -11,6 +11,7 @@ master = mavutil.mavlink_connection('/dev/ttyACM0', baud=115200)
 # Wait a heartbeat before sending commands
 master.wait_heartbeat()
 
+
 def set_rc_channel_pwm(channel_id, pwm):
     if channel_id < 1 or channel_id > 18:
         print("Channel does not exist.")
@@ -22,6 +23,7 @@ def set_rc_channel_pwm(channel_id, pwm):
         master.target_system,                # target_system
         master.target_component,             # target_component
         *rc_channel_values)                  # RC channel list, in microseconds.
+
 
 def arm():
     """
@@ -45,6 +47,7 @@ def arm():
         flag = False
     print('Armed!')
 
+
 def startMotor(du):
     """
     启动电机，参数为启动时长（秒）
@@ -62,6 +65,7 @@ def startMotor(du):
             break
         # print(end - start)
 
+
 def disArm():
     """
     锁定电机
@@ -76,12 +80,14 @@ def disArm():
     master.motors_disarmed_wait()
     print('DisArmed!')
 
+
 def start():
     arm()
     startMotor(5)
     disArm()
     print(("Finished!"))
     print("Waiting...")
+
 
 def heartBeat():
     # 打印当前时间
@@ -90,6 +96,7 @@ def heartBeat():
         start()
         # 每隔180秒执行一次
     threading.Timer(180, heartBeat).start()
+
 
 if __name__=='__main__':
     heartBeat()
