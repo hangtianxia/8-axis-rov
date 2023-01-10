@@ -42,11 +42,7 @@ request_message_interval(mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE, 2)
 # Get some information !
 while True:
     try:
-        msg = master.recv_match()
-        # print(master.recv_match().to_dict())
-        if not msg:
-            raise ValueError()
-        print(msg.to_dict())
+        print(master.recv_match().to_dict())
     except:
         pass
     time.sleep(0.1)

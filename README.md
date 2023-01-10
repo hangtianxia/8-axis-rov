@@ -20,7 +20,7 @@
 
 ### basicFunction.py
 
-包含一个class：Hyxqt，其中包含7个实例方法：
+包含一个class：Hyxqt，其中包含9个实例方法：
 1. arm(self)
 2. disArm(self)
 3. setRcChannelPWM(self, channel_id: int, pwm: int)
@@ -28,6 +28,8 @@
 5. changeFlightMode(self, mode: str)
 6. sendRcTransSignal(self, speed1: int, speed2: int)
 7. translation(self, angle: float, speed: int)
+8. rotation(self, dir: str, speed: int)
+9. floatingAndDiving(self, dir: str, speed: int)
 
 *具体功能及参数见文件内注释*
 
@@ -37,13 +39,15 @@
 from basicFunction import Hyxqt
 
 if __name__ == '__main__':
-    xqt = Hyxqt('/dev/ttyACM0', 115200)    #创建实例并建立连接
-    xqt.arm()                              #解锁电机
-    xqt.changeFlightMode("MANUAL")         #设置飞行模式为手动模式
+    xqt = Hyxqt('/dev/ttyACM0', 115200)     #创建实例并建立连接
+    xqt.arm()                               #解锁电机
+    xqt.changeFlightMode("MANUAL")          #设置飞行模式为手动模式
     while True:
-        xqt.translation(45, 200)           #向右前方45°以200速度平移
+        xqt.translation(45, 200)            #向右前方45°以200速度平移
+        # xqt.rotation('right', 100)        #向右以100速度自转
+        # xqt.floatingAndDiving('up', 200)  #以200速度上浮
 
-    # xqt.disArm()                         #锁定电机
+    # xqt.disArm()                          #锁定电机
 ```
 
 ### closeBiBi.py

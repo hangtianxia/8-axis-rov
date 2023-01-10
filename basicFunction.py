@@ -147,3 +147,36 @@ class Hyxqt:
         self.sendRcTransSignal(x, y)
         print("x:%s, y:%d" % (x, y))
         # print(cos(angle))
+
+    def rotation(self, dir: str, speed: int):
+        """
+        自转，根据参数中的方向和速度自转
+        :param dir:       方向（'left', 'right'）
+        :param speed:     速度 (0~400)
+        """
+        if dir == 'left':
+            speed = 1500 - speed
+        elif dir == 'right':
+            speed = 1500 + speed
+        else:
+            print('Invalid speed or direction! Direction should be left or right')
+            sys.exit(1)
+
+        self.setRcChannelPWM(4, speed)
+
+    def floatingAndDiving(self, dir: str, speed: int):
+        """
+        上浮和下潜，根据参数中的方向和速度进行上浮或下潜
+        :param dir:       方向（'left', 'right'）
+        :param speed:     速度 (0~400)
+        """
+        if dir == 'up':
+            speed = 1500 + speed
+        elif dir == 'down':
+            speed = 1500 - speed
+        else:
+            print('Invalid speed or direction! Direction should be up or down.')
+            sys.exit(1)
+
+        self.setRcChannelPWM(3, speed)
+
