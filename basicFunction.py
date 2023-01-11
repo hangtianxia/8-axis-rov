@@ -61,7 +61,7 @@ class Hyxqt:
     def startMotor(self, du: int):
         """
         通过RC信号启动电机
-        :param du: 电机启动时长（秒）
+        param du: 电机启动时长（秒）
         """
         # print("Channel 3、5")
         start = time.time()
@@ -79,7 +79,7 @@ class Hyxqt:
     def changeFlightMode(self, mode: str):
         """
         更换飞行模式
-        :param mode: 飞行模式
+        param mode: 飞行模式
         """
         # Check if mode is available
         if mode not in self.master.mode_mapping():
@@ -99,8 +99,8 @@ class Hyxqt:
     def sendRcTransSignal(self, speed1: int, speed2: int):
         """
         发送RC信号控制平移
-        :param speed1:  平移左右方向杆量
-        :param speed2:  平移前后方向杆量
+        param speed1:  平移左右方向杆量
+        param speed2:  平移前后方向杆量
         """
         self.setRcChannelPWM(6, speed1)
         self.setRcChannelPWM(5, speed2)
@@ -108,8 +108,8 @@ class Hyxqt:
     def translation(self, angle: float, speed: int):
         """
         平移，通过参数中的方向和速度进行全向解算并移动
-        :param angle:     角度（正前方为90°）
-        :param speed:     速度 (0~400)
+        param angle:     角度（正前方为90°）
+        param speed:     速度 (0~400)
         """
 
         x = y = 0
@@ -151,8 +151,8 @@ class Hyxqt:
     def rotation(self, dir: str, speed: int):
         """
         自转，根据参数中的方向和速度自转
-        :param dir:       方向（'left', 'right'）
-        :param speed:     速度 (0~400)
+        param dir:       方向（'left', 'right'）
+        param speed:     速度 (0~400)
         """
         if dir == 'left':
             speed = 1500 - speed
@@ -167,8 +167,8 @@ class Hyxqt:
     def floatingAndDiving(self, dir: str, speed: int):
         """
         上浮和下潜，根据参数中的方向和速度进行上浮或下潜
-        :param dir:       方向（'left', 'right'）
-        :param speed:     速度 (0~400)
+        param dir:       方向（'left', 'right'）
+        param speed:     速度 (0~400)
         """
         if dir == 'up':
             speed = 1500 + speed
@@ -179,4 +179,3 @@ class Hyxqt:
             sys.exit(1)
 
         self.setRcChannelPWM(3, speed)
-
