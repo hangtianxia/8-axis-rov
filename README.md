@@ -19,7 +19,7 @@
 2.  closeBiBi.py: 每隔3min启动一次所有电机以防止电调因长时间未收到信号发出bibi声
 3.  socketServer.py: 机器人的Socket服务端程序，用于接收上位机发送的控制信息
 4.  test.py: basicFunction.py 使用示例
-5.  其他文件均为basicFunction.py中功能的单独测试
+5.  test文件夹中均为basicFunction.py及socketServer.py中功能的单独测试
 
 #### basicFunction.py
 

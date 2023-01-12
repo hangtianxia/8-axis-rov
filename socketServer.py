@@ -30,5 +30,13 @@ class SocketServer:
     def getRCSignal(self):
         """
         接收两个摇杆的四个值并放入列表
-        :return:
         """
+        connection, address = self.sock.accept()
+        try:
+            connection.settimeout(5)
+            buf = connection.recv(1024)
+            return buf.decode('utf-8')
+        except socket.timeout:
+            print("time out")
+        connection.close()
+
