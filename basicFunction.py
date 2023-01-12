@@ -4,7 +4,7 @@ from math import sin, cos, radians
 from pymavlink import mavutil
 
 
-class Hyxqt:
+class Hyxqt(object):
     def __init__(self, devicePath: str, baudRate: int):
         """
         初始化实例，建立连接
@@ -108,7 +108,7 @@ class Hyxqt:
     def translation(self, angle: float, speed: int):
         """
         平移，通过参数中的方向和速度进行全向解算并移动
-        param angle:     角度（正前方为90°）
+        param angle:     角度（0~360, 正前方为90°）
         param speed:     速度 (0~400)
         """
 
@@ -179,3 +179,9 @@ class Hyxqt:
             sys.exit(1)
 
         self.setRcChannelPWM(3, speed)
+
+    def controlViaUpperComputer(self, data: list):
+        """
+        通过接收到的上位机数据控制机器人移动
+        param data: 四个摇杆的控制信号
+        """

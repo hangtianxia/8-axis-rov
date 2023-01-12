@@ -1,0 +1,30 @@
+import socket
+
+
+class SocketServer:
+
+    def __init__(self, ip: str, port: int):
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.bind((ip, port))
+        self.sock.listen(5)
+
+    def getData(self):
+        connection, address = self.sock.accept()
+        try:
+            connection.settimeout(5)
+            buf = connection.recv(1024)
+            return buf.decode('utf-8')
+        except socket.timeout:
+            print("time out")
+        connection.close()
+
+    def sendData(self, data):
+        connection, address = self.sock.accept()
+        try:
+            connection.settimeout(5)
+            self.sock.sendall(data.encode('utf-8'))
+        except socket.timeout:
+            print("time out")
+        connection.close()
+
+
