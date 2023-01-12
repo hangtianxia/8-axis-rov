@@ -18,8 +18,8 @@
 1.  basicFunction.py: 包含解锁、锁定、平移等基本功能
 2.  closeBiBi.py: 每隔3min启动一次所有电机以防止电调因长时间未收到信号发出bibi声
 3.  socketServer.py: 机器人的Socket服务端程序，用于接收上位机发送的控制信息
-3.  test.py: basicFunction.py 使用示例
-4. 其他文件均为basicFunction.py中功能的单独测试
+4.  test.py: basicFunction.py 使用示例
+5.  其他文件均为basicFunction.py中功能的单独测试
 
 #### basicFunction.py
 
@@ -39,6 +39,11 @@
 功能为启动Socket服务端，接收上位机的控制信息，包含1个构造方法和2个实例方法：
 1. getData(self)
 2. sendData(self)
+
+#### closeBiBi.py
+
+功能为每隔一段时间启动所有电机，防止电调因长时间接收不到信号发出响声，可独立运行。
+
 
 *具体功能及参数见文件内注释*
 
@@ -80,9 +85,5 @@ if __name__ == '__main__':
 ```
 
 *可使用上位机按键切换控制模式*
-
-### closeBiBi.py
-
-功能为每隔一段时间启动所有电机，防止电调因长时间接收不到信号发出响声，可独立运行。
 
 
