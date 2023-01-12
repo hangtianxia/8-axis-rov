@@ -21,7 +21,7 @@
 3.  test.py: basicFunction.py 使用示例
 4. 其他文件均为basicFunction.py中功能的单独测试
 
-### basicFunction.py
+#### basicFunction.py
 
 包含一个class：Hyxqt，其中包含1个构造方法和9个实例方法：
 1. arm(self)
@@ -34,7 +34,7 @@
 8. rotation(self, dir: str, speed: int)
 9. floatingAndDiving(self, dir: str, speed: int)
 
-### socketServer.py
+#### socketServer.py
 
 功能为启动Socket服务端，接收上位机的控制信息，包含1个构造方法和2个实例方法：
 1. getData(self)
