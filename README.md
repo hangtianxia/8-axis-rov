@@ -56,7 +56,7 @@
 from basicFunction import Hyxqt
 
 if __name__ == '__main__':
-    xqt = Hyxqt('/dev/ttyACM0', 115200)     #创建实例并建立连接
+    xqt = Hyxqt('/dev/ttyACM0', 115200)     #创建实例并建立与飞控间的连接
     xqt.arm()                               #解锁电机
     xqt.changeFlightMode("MANUAL")          #设置飞行模式为手动模式
     while True:
@@ -74,7 +74,7 @@ from socketServer import SocketServer
 
 if __name__ == '__main__':
     sock = SocketServer("localhost", 8001)                  #启动Socket服务器
-    xqt = Hyxqt('/dev/ttyACM0', 115200)                     #创建实例并建立连接
+    xqt = Hyxqt('/dev/ttyACM0', 115200)                     #创建实例并建立与飞控间的连接
     xqt.arm()                                               #解锁电机   
     xqt.changeFlightMode("STABILIZE")                       #设置飞行模式为自稳模式
     
@@ -82,7 +82,6 @@ if __name__ == '__main__':
         xqt.controlViaUpperComputer(sock.getRCSignal())     #通过上位机的摇杆控制机器人移动
         
     # xqt.disArm()
-
 ```
 
 *可使用上位机按键切换控制模式*
