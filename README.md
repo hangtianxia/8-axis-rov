@@ -36,9 +36,10 @@
 
 #### socketServer.py
 
-功能为启动Socket服务端，接收上位机的控制信息，包含1个构造方法和2个实例方法：
+功能为启动Socket服务端，接收上位机的控制信息，包含1个构造方法和3个实例方法：
 1. getData(self)
 2. sendData(self)
+3. getRCSignal(self)
 
 #### closeBiBi.py
 
@@ -72,13 +73,13 @@ from basicFunction import Hyxqt
 from socketServer import SocketServer
 
 if __name__ == '__main__':
-    sock = SocketServer("localhost", 8001)  #启动Socket服务器
-    xqt = Hyxqt('/dev/ttyACM0', 115200)     #创建实例并建立连接
-    xqt.arm()                               #解锁电机   
-    xqt.changeFlightMode("STABILIZE")       #设置飞行模式为自稳模式
+    sock = SocketServer("localhost", 8001)                  #启动Socket服务器
+    xqt = Hyxqt('/dev/ttyACM0', 115200)                     #创建实例并建立连接
+    xqt.arm()                                               #解锁电机   
+    xqt.changeFlightMode("STABILIZE")                       #设置飞行模式为自稳模式
     
     while True:
-        xqt.controlViaUpperComputer(sock.getData())
+        xqt.controlViaUpperComputer(sock.getRCSignal())     #通过上位机的摇杆控制机器人移动
         
     # xqt.disArm()
 

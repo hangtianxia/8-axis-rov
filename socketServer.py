@@ -27,4 +27,8 @@ class SocketServer:
             print("time out")
         connection.close()
 
-
+    def getRCSignal(self):
+        """
+        接收两个摇杆的四个值并放入列表
+        :return:
+        """

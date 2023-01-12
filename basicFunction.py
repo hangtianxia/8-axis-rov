@@ -183,5 +183,10 @@ class Hyxqt(object):
     def controlViaUpperComputer(self, data: list):
         """
         通过接收到的上位机数据控制机器人移动
-        param data: 四个摇杆的控制信号
+        param data: 四个摇杆的控制信号，
+            接收到的列表中包含两组坐标，其中四个值分别为channel3、4、5、6、的原始控制值（-400～400）
         """
+        self.setRcChannelPWM(3, data[0] + 1500)
+        self.setRcChannelPWM(4, data[1] + 1500)
+        self.setRcChannelPWM(5, data[2] + 1500)
+        self.setRcChannelPWM(6, data[3] + 1500)

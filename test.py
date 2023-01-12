@@ -11,6 +11,6 @@ if __name__ == '__main__':
     while True:
         # xqt.translation(135, 150)
         # xqt.rotation('right', 100)
-        print(sock.getData())
+        print(sock.getRCSignal())
         # xqt.floatingAndDiving('up', 200)
     # xqt.disArm()
