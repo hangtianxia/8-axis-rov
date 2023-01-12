@@ -44,7 +44,7 @@
 
 ### 示例程序
 
-使用程序控制：
+#### 使用程序控制：
 
 ``` py
 from basicFunction import Hyxqt
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     # xqt.disArm()                          #锁定电机
 ```
 
-使用上位机控制：
+#### 使用上位机控制：
 ```py
 from basicFunction import Hyxqt
 from socketServer import SocketServer
