@@ -32,11 +32,19 @@ class SocketServer:
         接收两个摇杆的四个值并放入列表
         """
         connection, address = self.sock.accept()
+
         try:
-            connection.settimeout(5)
-            buf = connection.recv(1024)
-            return buf.decode('utf-8')
+            connection.settimeout(50)
+            while True:
+                buf = connection.recv(1024)
+
+                buf = connection.recv(1024)
+                print("接收到数据：" + buf.decode())
+                # connection.sendall('welcome to server!')
+
         except socket.timeout:
-            print("time out")
+            print("Time out")
+
+        print("Closing one connection")
         connection.close()
 
